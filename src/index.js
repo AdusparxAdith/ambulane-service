@@ -1,7 +1,9 @@
-'use strict';
+import 'dotenv/config';
+import Server from './bootstrap/server.js';
 
 function main() {
-  console.log('Init');
+  const server = new Server();
+  server.start();
 }
 
 main();

@@ -1,8 +1,10 @@
 {
-  "extends": "airbnb-base",
+  "extends": "airbnb-base",  
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
-    "ecmaVersion": 2022,
-    "sourceType": "script"
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+    "requireConfigFile": false
   },
   "rules": {
     "prefer-arrow-callback": ["error", { "allowNamedFunctions": true }],
@@ -13,6 +15,9 @@
     "brace-style": ["error", "stroustrup"],
     "indent": ["error", 2],
     "max-len": ["error", { "code": 160, "tabWidth": 2 }],
-    "strict": ["error", "safe"]
+    "strict": ["error", "safe"],
+    "import/extensions": ["error", "always", {
+      "ignorePackages": true
+    }]
   }
 }
