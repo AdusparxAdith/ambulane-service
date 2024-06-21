@@ -3,14 +3,15 @@ import { Server } from 'socket.io';
 import { authenticateSocket } from '../utils/authentication.js';
 
 export default class SocketServer {
-  constructor() {
+  constructor({ config }) {
+    this.config = config;
     this.io = null;
   }
 
   start() {
     const server = http.createServer();
-    server.listen(process.env.SOCKET_SERVER_PORT, () => {
-      console.log(`Socket.IO server listening on port ${process.env.SOCKET_SERVER_PORT}`);
+    server.listen(this.config.socketServerPort, () => {
+      console.log(`Socket.IO server listening on port ${this.config.socketServerPort}`);
     });
     this.io = new Server(server);
     this.io.use((socket, next) => {

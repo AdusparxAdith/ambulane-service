@@ -51,6 +51,7 @@
     "npm": "^10.8.0"
   },
   "dependencies": {
+    "convict": "^6.2.4",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "socket.io": "^4.7.5"

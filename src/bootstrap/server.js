@@ -4,7 +4,8 @@ import ambulanceRoutes from '../routes/ambulance.js';
 import userRoutes from '../routes/user.js';
 
 export default class Server {
-  constructor() {
+  constructor({ config }) {
+    this.config = config;
     this.app = express();
     this.setupMiddleware();
     this.setupRoutes();
@@ -24,7 +25,7 @@ export default class Server {
   }
 
   start(components) {
-    const PORT = process.env.HTTP_SERVER_PORT;
+    const PORT = this.config.appServerPort;
     this.app.listen(PORT, () => {
       console.log(`Started Server on port ${PORT}`);
       components.forEach(((component) => {

@@ -1,3 +1,5 @@
+import config from '../config/index.js';
+
 // eslint-disable-next-line import/prefer-default-export
 export function authenticateSocket(socket, next) {
   const token = socket.handshake.headers.access_token;
@@ -6,7 +8,7 @@ export function authenticateSocket(socket, next) {
     return next(new Error('Authentication error: Token missing'));
   }
 
-  if (token !== process.env.JWT_SECRET) {
+  if (token !== config.authSecret) {
     return next(new Error('Authentication error: Token missing'));
   }
 
