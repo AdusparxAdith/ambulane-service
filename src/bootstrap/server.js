@@ -23,10 +23,19 @@ export default class Server {
     });
   }
 
-  start() {
-    const PORT = process.env.SERVER_PORT;
+  start(components) {
+    const PORT = process.env.HTTP_SERVER_PORT;
     this.app.listen(PORT, () => {
-      console.log(`Server is listening on port ${PORT}`);
+      console.log(`Started Server on port ${PORT}`);
+      components.forEach(((component) => {
+        try {
+          component.start();
+          console.log('Started', component.constructor.name);
+        }
+        catch (error) {
+          console.error(error);
+        }
+      }));
     });
   }
 }
