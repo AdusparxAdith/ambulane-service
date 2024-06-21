@@ -1,4 +1,7 @@
 import express from 'express';
+import defaultRoutes from '../routes/default.js';
+import ambulanceRoutes from '../routes/ambulance.js';
+import userRoutes from '../routes/user.js';
 
 export default class Server {
   constructor() {
@@ -12,8 +15,11 @@ export default class Server {
   }
 
   setupRoutes() {
-    this.app.get('/', (req, res) => {
-      res.send('Hello, World!');
+    this.app.use('/', defaultRoutes);
+    this.app.use('/ambulance', ambulanceRoutes);
+    this.app.use('/user', userRoutes);
+    this.app.use((_, res) => {
+      res.status(404).send('Not Found');
     });
   }
 
