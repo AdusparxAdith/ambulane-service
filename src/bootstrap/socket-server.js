@@ -1,8 +1,8 @@
-import http from 'http';
-import { Server } from 'socket.io';
-import { authenticateSocket } from '../utils/authentication.js';
+const http = require('http');
+const { Server } = require('socket.io');
+const { authenticateSocket } = require('../utils/authentication');
 
-export default class SocketServer {
+module.exports = class SocketServer {
   constructor({ config }) {
     this.config = config;
     this.io = null;
@@ -29,4 +29,4 @@ export default class SocketServer {
       });
     });
   }
-}
+};

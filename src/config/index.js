@@ -1,5 +1,5 @@
-import 'dotenv/config';
-import convict from 'convict';
+require('dotenv/config');
+const convict = require('convict');
 
 const config = convict({
   appServerPort: {
@@ -24,6 +24,6 @@ const config = convict({
 
 config.validate({ allowed: 'strict' });
 
-export default {
+module.exports = {
   ...config.getProperties(),
 };

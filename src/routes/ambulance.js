@@ -1,9 +1,13 @@
-import { Router } from 'express';
+const { Router } = require('express');
+const { container } = require('../bootstrap/container');
+
+const AmbulanceController = container.resolve('AmbulanceController');
 
 const router = Router();
 
 router.get('/locations', (req, res) => {
-  res.send([1, 2]);
+  const locations = AmbulanceController.getLocations();
+  res.send(locations);
 });
 
 router.get('/location/nearby', (req, res) => {
@@ -18,4 +22,4 @@ router.post('/location/stop', (req, res) => {
   res.send({ success: true });
 });
 
-export default router;
+module.exports = router;

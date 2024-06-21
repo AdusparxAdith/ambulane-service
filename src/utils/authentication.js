@@ -1,7 +1,7 @@
-import config from '../config/index.js';
+const config = require('../config/index');
 
 // eslint-disable-next-line import/prefer-default-export
-export function authenticateSocket(socket, next) {
+exports = function authenticateSocket(socket, next) {
   const token = socket.handshake.headers.access_token;
 
   if (!token) {
@@ -13,4 +13,4 @@ export function authenticateSocket(socket, next) {
   }
 
   return next();
-}
+};

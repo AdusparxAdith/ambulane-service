@@ -1,8 +1,7 @@
 {
-  "extends": "airbnb-base",  
+  "extends": "airbnb-base",
   "parser": "@babel/eslint-parser",
   "parserOptions": {
-    "sourceType": "module",
     "allowImportExportEverywhere": true,
     "requireConfigFile": false
   },
@@ -15,9 +14,6 @@
     "brace-style": ["error", "stroustrup"],
     "indent": ["error", 2],
     "max-len": ["error", { "code": 160, "tabWidth": 2 }],
-    "strict": ["error", "safe"],
-    "import/extensions": ["error", "always", {
-      "ignorePackages": true
-    }]
+    "strict": ["error", "safe"]
   }
 }

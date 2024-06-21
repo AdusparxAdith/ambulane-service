@@ -1,9 +1,9 @@
-import express from 'express';
-import defaultRoutes from '../routes/default.js';
-import ambulanceRoutes from '../routes/ambulance.js';
-import userRoutes from '../routes/user.js';
+const express = require('express');
+const defaultRoutes = require('../routes/default');
+const ambulanceRoutes = require('../routes/ambulance');
+const userRoutes = require('../routes/user');
 
-export default class Server {
+module.exports = class Server {
   constructor({ config }) {
     this.config = config;
     this.app = express();
@@ -39,4 +39,4 @@ export default class Server {
       }));
     });
   }
-}
+};

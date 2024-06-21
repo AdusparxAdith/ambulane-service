@@ -1,6 +1,10 @@
-import config from './config/index.js';
-import Server from './bootstrap/server.js';
-import SocketServer from './bootstrap/socket-server.js';
+const { setupContainer } = require('./bootstrap/container');
+
+setupContainer();
+
+const Server = require('./bootstrap/server');
+const SocketServer = require('./bootstrap/socket-server');
+const config = require('./config');
 
 function main() {
   const server = new Server({ config });
