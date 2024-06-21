@@ -1,7 +1,7 @@
 const config = require('../config/index');
 
 // eslint-disable-next-line import/prefer-default-export
-exports = function authenticateSocket(socket, next) {
+function authenticateSocket(socket, next) {
   const token = socket.handshake.headers.access_token;
 
   if (!token) {
@@ -9,8 +9,12 @@ exports = function authenticateSocket(socket, next) {
   }
 
   if (token !== config.authSecret) {
-    return next(new Error('Authentication error: Token missing'));
+    return next(new Error('Authentication error: Incorrect token'));
   }
 
   return next();
+}
+
+module.exports = {
+  authenticateSocket,
 };

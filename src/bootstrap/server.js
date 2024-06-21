@@ -1,6 +1,6 @@
 const express = require('express');
 const defaultRoutes = require('../routes/default');
-const ambulanceRoutes = require('../routes/ambulance');
+const locationRoutes = require('../routes/location');
 const userRoutes = require('../routes/user');
 
 module.exports = class Server {
@@ -17,7 +17,7 @@ module.exports = class Server {
 
   setupRoutes() {
     this.app.use('/', defaultRoutes);
-    this.app.use('/ambulance', ambulanceRoutes);
+    this.app.use('/location', locationRoutes);
     this.app.use('/user', userRoutes);
     this.app.use((_, res) => {
       res.status(404).send('Not Found');
@@ -31,7 +31,7 @@ module.exports = class Server {
       components.forEach(((component) => {
         try {
           component.start();
-          console.log('Started', component.constructor.name);
+          console.log('Starting', component.constructor.name, '....');
         }
         catch (error) {
           console.error(error);

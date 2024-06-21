@@ -1,6 +1,7 @@
 const http = require('http');
 const { Server } = require('socket.io');
 const { authenticateSocket } = require('../utils/authentication');
+const events = require('../events');
 
 module.exports = class SocketServer {
   constructor({ config }) {
@@ -11,7 +12,7 @@ module.exports = class SocketServer {
   start() {
     const server = http.createServer();
     server.listen(this.config.socketServerPort, () => {
-      console.log(`Socket.IO server listening on port ${this.config.socketServerPort}`);
+      console.log(`Socket.IO Server listening on port ${this.config.socketServerPort}`);
     });
     this.io = new Server(server);
     this.io.use((socket, next) => {
@@ -20,9 +21,7 @@ module.exports = class SocketServer {
     this.io.on('connection', (socket) => {
       console.log('Client connected');
 
-      socket.on('location', (data) => {
-        console.log('Received location:', data);
-      });
+      events.forEach(({ eventName, handler }) => socket.on(eventName, handler));
 
       socket.on('disconnect', () => {
         console.log('Client disconnected');

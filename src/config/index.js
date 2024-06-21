@@ -20,6 +20,12 @@ const config = convict({
     default: '',
     env: 'AUTH_SECRET',
   },
+  dbURI: {
+    doc: 'URI to database connection',
+    format: String,
+    default: 'mongodb://127.0.0.1:27017',
+    env: 'MONGODB_URI',
+  },
 });
 
 config.validate({ allowed: 'strict' });
