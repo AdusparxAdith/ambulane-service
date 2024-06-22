@@ -13,6 +13,24 @@ function setupContainer() {
     },
   );
 
+  // load Models
+  container.loadModules(
+    ['../data-access/*.js'],
+    {
+      cwd: __dirname,
+      formatName: formatCapitalizedWithAppend('DataAccess'),
+    },
+  );
+
+  // load Services
+  container.loadModules(
+    ['../services/*.js'],
+    {
+      cwd: __dirname,
+      formatName: formatCapitalizedWithAppend('Service'),
+    },
+  );
+
   // load Controllers
   container.loadModules(
     ['../controllers/*.js'],

@@ -1,24 +1,11 @@
 module.exports = class LocationController {
-  constructor({ UserModel }) {
-    this.UserModel = UserModel;
+  constructor({ LocationService }) {
+    this.LocationService = LocationService;
   }
 
-  async getLocations() {
-    const { UserModel } = this;
-    const locations = await UserModel.find();
-    return locations;
-  }
-
-  async updateLocation({ id, coordinates }) {
-    const { UserModel } = this;
-    const updatedLocation = await UserModel.findByIdAndUpdate(id, {
-      $set: {
-        location: {
-          type: 'Point',
-          coordinates,
-        },
-      },
-    }, { upsert: true });
-    return updatedLocation;
+  async getLocations(_, res) {
+    const { LocationService } = this;
+    const { locations } = await LocationService.getLocations();
+    res.send(locations);
   }
 };

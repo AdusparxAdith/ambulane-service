@@ -2,6 +2,7 @@ const express = require('express');
 const defaultRoutes = require('../routes/default');
 const locationRoutes = require('../routes/location');
 const userRoutes = require('../routes/user');
+const apiErrorHandler = require('../error/api-error-handler');
 
 module.exports = class Server {
   constructor({ config }) {
@@ -19,6 +20,7 @@ module.exports = class Server {
     this.app.use('/', defaultRoutes);
     this.app.use('/location', locationRoutes);
     this.app.use('/user', userRoutes);
+    this.app.use(apiErrorHandler);
     this.app.use((_, res) => {
       res.status(404).send('Not Found');
     });

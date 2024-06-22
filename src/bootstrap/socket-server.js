@@ -1,6 +1,8 @@
 const http = require('http');
 const { Server } = require('socket.io');
 const { authenticateSocket } = require('../utils/authentication');
+const withErrorHandling = require('../error/socket-error-handler');
+
 const events = require('../events');
 
 module.exports = class SocketServer {
@@ -21,7 +23,7 @@ module.exports = class SocketServer {
     this.io.on('connection', (socket) => {
       console.log('Client connected');
 
-      events.forEach(({ eventName, handler }) => socket.on(eventName, handler));
+      events.forEach(({ eventName, handler }) => socket.on(eventName, withErrorHandling(socket, handler)));
 
       socket.on('disconnect', () => {
         console.log('Client disconnected');

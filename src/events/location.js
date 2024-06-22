@@ -1,13 +1,12 @@
 const { container } = require('../bootstrap/container');
 
-const LocationController = container.resolve('LocationController');
+const LocationService = container.resolve('LocationService');
 
 module.exports = [
   {
     eventName: 'update-location',
-    handler: ({ id, coordinates }) => {
-      console.log('Received location:', { id, coordinates });
-      LocationController.updateLocation({ id, coordinates });
+    handler: async ({ id, coordinates }) => {
+      await LocationService.updateLocation({ id, coordinates });
     },
   },
 ];
