@@ -9,6 +9,12 @@ module.exports = class LocationService {
     return { locations };
   }
 
+  async getNearby({ coordinates }) {
+    const { UserDataAccess } = this;
+    const { locations } = await UserDataAccess.getNearby({ coordinates });
+    return { locations };
+  }
+
   async updateLocation({ id, coordinates }) {
     const { UserDataAccess } = this;
     const { updatedLocation } = await UserDataAccess.updateLocation({ id, coordinates });

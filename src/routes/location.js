@@ -8,9 +8,7 @@ const router = Router();
 
 router.get('/', asyncHandler((req, res) => LocationController.getLocations(req, res)));
 
-router.get('/nearby', (req, res) => {
-  res.send([1, 2]);
-});
+router.get('/nearby', asyncHandler((req, res) => LocationController.getNearby(req, res)));
 
 router.post('/start', ((req, res) => {
   res.send({ success: true });

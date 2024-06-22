@@ -1,0 +1,4 @@
+module.exports = {
+  NEARBY_MAX_DISTANCE: 5000,
+  NEARBY_MIN_DISTANCE: 1000,
+};

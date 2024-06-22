@@ -1,3 +1,5 @@
+const { NEARBY_MIN_DISTANCE, NEARBY_MAX_DISTANCE } = require('../constants');
+
 module.exports = class UserDataAccess {
   constructor({ UserModel }) {
     this.UserModel = UserModel;
@@ -6,6 +8,22 @@ module.exports = class UserDataAccess {
   async getLocations() {
     const { UserModel } = this;
     const locations = await UserModel.find();
+    return { locations };
+  }
+
+  async getNearby({ coordinates }) {
+    const { UserModel } = this;
+    const locations = await UserModel.find({
+      location:
+          {
+            $near:
+             {
+               $geometry: { type: 'Point', coordinates },
+               $minDistance: NEARBY_MIN_DISTANCE,
+               $maxDistance: NEARBY_MAX_DISTANCE,
+             },
+          },
+    });
     return { locations };
   }
 
