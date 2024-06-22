@@ -9,7 +9,7 @@ module.exports = class Database {
     const URI = this.config.dbURI;
     try {
       await mongoose.connect(URI);
-      console.log('Connected to MongoDB');
+      console.debug('Connected to MongoDB');
     }
     catch (error) {
       console.error('Error connecting to MongoDB', error);
@@ -20,7 +20,7 @@ module.exports = class Database {
   async stop() {
     try {
       await mongoose.disconnect();
-      console.log('Disconnected from MongoDB');
+      console.debug('Disconnected from MongoDB');
     }
     catch (error) {
       console.error('Error disconnecting from MongoDB', error);

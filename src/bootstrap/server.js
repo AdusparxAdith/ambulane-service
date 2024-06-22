@@ -29,11 +29,11 @@ module.exports = class Server {
   start(components) {
     const PORT = this.config.appServerPort;
     this.app.listen(PORT, () => {
-      console.log(`Started Server on port ${PORT}`);
+      console.debug(`Started Server on port ${PORT}`);
       components.forEach(((component) => {
         try {
           component.start();
-          console.log('Starting', component.constructor.name, '....');
+          console.debug('Starting', component.constructor.name, '....');
         }
         catch (error) {
           console.error(error);

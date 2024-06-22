@@ -14,19 +14,19 @@ module.exports = class SocketServer {
   start() {
     const server = http.createServer();
     server.listen(this.config.socketServerPort, () => {
-      console.log(`Socket.IO Server listening on port ${this.config.socketServerPort}`);
+      console.debug(`Socket.IO Server listening on port ${this.config.socketServerPort}`);
     });
     this.io = new Server(server);
     this.io.use((socket, next) => {
       authenticateSocket(socket, next);
     });
     this.io.on('connection', (socket) => {
-      console.log('Client connected');
+      console.debug('Client connected');
 
       events.forEach(({ eventName, handler }) => socket.on(eventName, withErrorHandling(socket, handler)));
 
       socket.on('disconnect', () => {
-        console.log('Client disconnected');
+        console.debug('Client disconnected');
       });
     });
   }
