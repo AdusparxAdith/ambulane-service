@@ -5,6 +5,26 @@ module.exports = class UserDataAccess {
     this.UserModel = UserModel;
   }
 
+  async createUser({
+    username, password, name, type, location,
+  }) {
+    const { UserModel } = this;
+    const user = await UserModel.create({
+      username, password, name, type, location,
+    });
+    return { user };
+  }
+
+  async getUser({
+    username, password,
+  }) {
+    const { UserModel } = this;
+    const user = await UserModel.findOne({
+      username, password,
+    }).lean();
+    return { user };
+  }
+
   async getLocations() {
     const { UserModel } = this;
     const locations = await UserModel.find();

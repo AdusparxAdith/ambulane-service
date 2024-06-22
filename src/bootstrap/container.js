@@ -1,9 +1,13 @@
 const awilix = require('awilix');
 const { formatCapitalizedWithAppend } = require('../utils/string');
+const config = require('../config');
 
 const container = awilix.createContainer();
 
 function setupContainer() {
+  // load config
+  container.register('config', awilix.asValue(config));
+
   // load Models
   container.loadModules(
     ['../data-access/models/*.js'],
