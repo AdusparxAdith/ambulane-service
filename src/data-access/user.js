@@ -3,6 +3,7 @@ const { NEARBY_MIN_DISTANCE, NEARBY_MAX_DISTANCE } = require('../constants');
 module.exports = class UserDataAccess {
   constructor({ UserModel }) {
     this.UserModel = UserModel;
+    this.defaultFields = 'id name username type';
   }
 
   async createUser({
@@ -16,12 +17,12 @@ module.exports = class UserDataAccess {
   }
 
   async getUser({
-    username, password,
+    username, password, fields = this.defaultFields,
   }) {
     const { UserModel } = this;
     const user = await UserModel.findOne({
       username, password,
-    }).lean();
+    }).lean().select(fields);
     return { user };
   }
 

@@ -33,10 +33,8 @@ module.exports = class Server {
     this.app.use('/', defaultRoutes);
     this.app.use('/location', locationRoutes);
     this.app.use('/user', userRoutes);
+    this.app.get('*', (req, res) => res.status(404));
     this.app.use(apiErrorHandler);
-    this.app.use((_, res) => {
-      res.status(404).send('Not Found');
-    });
   }
 
   start(components) {

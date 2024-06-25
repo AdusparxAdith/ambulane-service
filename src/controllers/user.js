@@ -1,3 +1,6 @@
+const AuthLogic = require('../logic/auth');
+const { parseCookies } = require('../utils/authentication');
+
 module.exports = class UserController {
   constructor({ UserService }) {
     this.UserService = UserService;
@@ -28,5 +31,18 @@ module.exports = class UserController {
     res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; SameSite=Strict`);
 
     res.send({ token, user });
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async verify(req, res) {
+    const cookies = parseCookies(req.headers);
+    const verified = AuthLogic.verifyAuthToken(cookies.token);
+    if (verified) {
+      res.status(200).send({ user: verified });
+    }
+    else {
+      res.setHeader('Set-Cookie', 'token=invalid; HttpOnly; Path=/; SameSite=Strict');
+      res.sendStatus(401);
+    }
   }
 };

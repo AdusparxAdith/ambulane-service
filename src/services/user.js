@@ -9,7 +9,7 @@ module.exports = class LocationService {
   generateAuthToken({ user }) {
     const { config } = this;
     const secret = config.authSecret;
-    return AuthLogic.generateAuthToken({ id: user.id || user._id, secret });
+    return AuthLogic.generateAuthToken({ id: user.id || user._id, ...user, secret });
   }
 
   async register({

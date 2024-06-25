@@ -23,7 +23,7 @@ const config = convict({
   dbURI: {
     doc: 'URI to database connection',
     format: String,
-    default: 'mongodb://127.0.0.1:27017',
+    default: 'mongodb://127.0.0.1:27017/ambulane',
     env: 'MONGODB_URI',
   },
   allowedOrigins: {
