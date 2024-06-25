@@ -26,6 +26,12 @@ const config = convict({
     default: 'mongodb://127.0.0.1:27017',
     env: 'MONGODB_URI',
   },
+  allowedOrigins: {
+    doc: 'Allowed Origins for requests',
+    format: String,
+    default: [],
+    env: 'ALLOWED_ORIGINS',
+  },
 });
 
 config.validate({ allowed: 'strict' });

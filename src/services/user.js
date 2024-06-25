@@ -34,6 +34,6 @@ module.exports = class LocationService {
 
     const token = this.generateAuthToken({ user });
 
-    return { token };
+    return { token, user };
   }
 };

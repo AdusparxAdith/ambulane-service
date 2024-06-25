@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const defaultRoutes = require('../routes/default');
 const locationRoutes = require('../routes/location');
 const userRoutes = require('../routes/user');
@@ -13,6 +14,18 @@ module.exports = class Server {
   }
 
   setupMiddleware() {
+    const { allowedOrigins } = this.config;
+    this.app.use(cors({
+      origin(origin, callback) {
+        if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+          callback(null, true);
+        }
+        else {
+          callback(new Error('Not allowed by CORS'));
+        }
+      },
+      credentials: true,
+    }));
     this.app.use(express.json());
   }
 
@@ -30,7 +43,7 @@ module.exports = class Server {
     const PORT = this.config.appServerPort;
     this.app.listen(PORT, () => {
       console.debug(`Started Server on port ${PORT}`);
-      components.forEach(((component) => {
+      components.forEach((component) => {
         try {
           component.start();
           console.debug('Starting', component.constructor.name, '....');
@@ -38,7 +51,7 @@ module.exports = class Server {
         catch (error) {
           console.error(error);
         }
-      }));
+      });
     });
   }
 };

@@ -22,8 +22,11 @@ module.exports = class UserController {
     } = req.body;
 
     const { UserService } = this;
-    const { token } = await UserService.login({ username, password });
+    const { token, user } = await UserService.login({ username, password });
 
-    res.send(token);
+    // Set HTTP-only cookie with the JWT token
+    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; SameSite=Strict`);
+
+    res.send({ token, user });
   }
 };
