@@ -34,6 +34,12 @@ module.exports = class UserController {
   }
 
   // eslint-disable-next-line class-methods-use-this
+  async logout(_, res) {
+    res.setHeader('Set-Cookie', 'token=invalid; HttpOnly; Path=/; SameSite=Strict');
+    res.sendStatus(200);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
   async verify(req, res) {
     const cookies = parseCookies(req.headers);
     const verified = AuthLogic.verifyAuthToken(cookies.token);
