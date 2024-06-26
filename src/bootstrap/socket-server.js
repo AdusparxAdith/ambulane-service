@@ -16,12 +16,27 @@ module.exports = class SocketServer {
     server.listen(this.config.socketServerPort, () => {
       console.debug(`Socket.IO Server listening on port ${this.config.socketServerPort}`);
     });
-    this.io = new Server(server);
+    const { allowedOrigins } = this.config;
+
+    this.io = new Server(server, {
+      cors: {
+        origin: (origin, callback) => {
+          if (allowedOrigins.includes(origin)) {
+            callback(null, true);
+          }
+          else {
+            callback(new Error('Not allowed by CORS'));
+          }
+        },
+        methods: ['GET', 'POST'],
+        credentials: true,
+      },
+    });
     this.io.use((socket, next) => {
       authenticateSocket(socket, next);
     });
     this.io.on('connection', (socket) => {
-      console.debug('Client connected');
+      console.debug('Client connected', socket?.user?.username);
 
       events.forEach(({ eventName, handler }) => socket.on(eventName, withErrorHandling(socket, handler)));
 

@@ -15,9 +15,9 @@ module.exports = class LocationService {
     return { locations };
   }
 
-  async updateLocation({ id, coordinates }) {
+  async updateLocation({ user, coordinates }) {
     const { UserDataAccess } = this;
-    const { updatedLocation } = await UserDataAccess.updateLocation({ id, coordinates });
+    const { updatedLocation } = await UserDataAccess.updateLocation({ id: user.id, coordinates });
     return { updatedLocation };
   }
 };
