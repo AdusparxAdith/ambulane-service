@@ -29,14 +29,14 @@ module.exports = class UserController {
     const { token, user } = await UserService.login({ username, password });
 
     // Set HTTP-only cookie with the JWT token
-    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/; SameSite=Strict`);
+    res.setHeader('Set-Cookie', `token=${token}; HttpOnly; Path=/;`);
 
     res.send({ token, user });
   }
 
   // eslint-disable-next-line class-methods-use-this
   async logout(_, res) {
-    res.setHeader('Set-Cookie', 'token=invalid; HttpOnly; Path=/; SameSite=Strict');
+    res.setHeader('Set-Cookie', 'token=invalid; HttpOnly; Path=/;');
     res.sendStatus(200);
   }
 
@@ -48,7 +48,7 @@ module.exports = class UserController {
       res.status(200).send({ user: verified });
     }
     else {
-      res.setHeader('Set-Cookie', 'token=invalid; HttpOnly; Path=/; SameSite=Strict');
+      res.setHeader('Set-Cookie', 'token=invalid; HttpOnly; Path=/;');
       res.sendStatus(401);
     }
   }
