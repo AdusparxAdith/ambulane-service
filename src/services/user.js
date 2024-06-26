@@ -1,3 +1,4 @@
+const { formatUser } = require('../formatter/user');
 const AuthLogic = require('../logic/auth');
 
 module.exports = class LocationService {
@@ -7,9 +8,10 @@ module.exports = class LocationService {
   }
 
   generateAuthToken({ user }) {
+    const formattedUser = formatUser(user);
     const { config } = this;
     const secret = config.authSecret;
-    return AuthLogic.generateAuthToken({ id: user.id || user._id, ...user, secret });
+    return AuthLogic.generateAuthToken({ ...formattedUser, secret });
   }
 
   async register({
@@ -34,6 +36,6 @@ module.exports = class LocationService {
 
     const token = this.generateAuthToken({ user });
 
-    return { token, user };
+    return { token, user: formatUser(user) };
   }
 };

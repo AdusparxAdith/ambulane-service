@@ -3,7 +3,7 @@ const { NEARBY_MIN_DISTANCE, NEARBY_MAX_DISTANCE } = require('../constants');
 module.exports = class UserDataAccess {
   constructor({ UserModel }) {
     this.UserModel = UserModel;
-    this.defaultFields = 'id name username type';
+    this.defaultFields = 'id name username type location';
   }
 
   async createUser({
@@ -32,7 +32,7 @@ module.exports = class UserDataAccess {
     return { locations };
   }
 
-  async getNearby({ coordinates }) {
+  async getNearby({ coordinates, type }) {
     const { UserModel } = this;
     const locations = await UserModel.find({
       location:
@@ -44,7 +44,8 @@ module.exports = class UserDataAccess {
                $maxDistance: NEARBY_MAX_DISTANCE,
              },
           },
-    }).lean().select('location.coordinates username type');
+      type: { $ne: type },
+    }).lean().select('location.coordinates name type');
     return { locations };
   }
 

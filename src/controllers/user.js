@@ -1,3 +1,4 @@
+const { formatUser } = require('../formatter/user');
 const AuthLogic = require('../logic/auth');
 const { parseCookies } = require('../utils/authentication');
 
@@ -16,7 +17,7 @@ module.exports = class UserController {
       username, password, name, type, location,
     });
 
-    res.status(201).send({ user, token });
+    res.status(201).send({ user: formatUser(user), token });
   }
 
   async login(req, res) {

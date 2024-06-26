@@ -3,10 +3,10 @@ const config = require('../config');
 
 module.exports = class AuthLogic {
   static generateAuthToken({
-    id, name, username, type,
+    id, name, username, type, location,
   }) {
     return jwt.sign({
-      time: new Date(), id, name, type, username,
+      time: new Date(), id, name, type, username, location,
     }, config.authSecret, { expiresIn: '24h' });
   }
 

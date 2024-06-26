@@ -12,9 +12,9 @@ module.exports = class LocationController {
   }
 
   async getNearby(req, res) {
-    const { coordinates } = req.body;
+    const { coordinates, type } = req.body;
     const { LocationService } = this;
-    const { locations } = await LocationService.getNearby({ coordinates });
+    const { locations } = await LocationService.getNearby({ coordinates, type });
     res.send(formatLocationMarkers(locations));
   }
 };
