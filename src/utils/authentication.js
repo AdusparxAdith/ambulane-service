@@ -35,16 +35,9 @@ function authenticateSocket(socket, next) {
 }
 
 function authenticateRoute(req, res, next) {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return res.status(401);
-  }
-
-  const token = authHeader.split(' ')[1];
-
+  const cookies = parseCookies(req.headers);
   try {
-    const verified = AuthLogic.verifyAuthToken(token);
+    const verified = AuthLogic.verifyAuthToken(cookies.token);
 
     if (!verified) {
       return next(new Error('Authentication error: Invalid token'));

@@ -1,3 +1,5 @@
+const { formatLocationMarkers } = require('../formatter/location');
+
 module.exports = class LocationController {
   constructor({ LocationService }) {
     this.LocationService = LocationService;
@@ -13,6 +15,6 @@ module.exports = class LocationController {
     const { coordinates } = req.body;
     const { LocationService } = this;
     const { locations } = await LocationService.getNearby({ coordinates });
-    res.send(locations);
+    res.send(formatLocationMarkers(locations));
   }
 };

@@ -44,7 +44,7 @@ module.exports = class UserDataAccess {
                $maxDistance: NEARBY_MAX_DISTANCE,
              },
           },
-    });
+    }).lean().select('location.coordinates username type');
     return { locations };
   }
 
