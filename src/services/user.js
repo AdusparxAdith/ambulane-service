@@ -1,3 +1,5 @@
+const { ERROR_CODES } = require('../constants');
+const { AuthError } = require('../error/errors/auth');
 const { formatUser } = require('../formatter/user');
 const AuthLogic = require('../logic/auth');
 
@@ -32,7 +34,7 @@ module.exports = class LocationService {
 
     const { user } = await UserDataAccess.getUser({ username, password });
 
-    if (!user) throw new Error('Authentication Failed');
+    if (!user) throw new AuthError({ message: 'Authentication Failed', code: ERROR_CODES.AUTH });
 
     const token = this.generateAuthToken({ user });
 
