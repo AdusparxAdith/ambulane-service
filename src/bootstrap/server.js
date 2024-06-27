@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const http = require('http');
 const defaultRoutes = require('../routes/default');
 const locationRoutes = require('../routes/location');
 const userRoutes = require('../routes/user');
@@ -38,18 +39,19 @@ module.exports = class Server {
   }
 
   start(components) {
+    const server = http.createServer(this.app);
     const PORT = this.config.appServerPort;
-    this.app.listen(PORT, () => {
-      console.debug(`Started Server on port ${PORT}`);
-      components.forEach((component) => {
-        try {
-          component.start();
-          console.debug('Starting', component.constructor.name, '....');
-        }
-        catch (error) {
-          console.error(error);
-        }
-      });
+    server.listen(PORT, () => {
+      console.debug('Server Started...');
+    });
+    components.forEach((component) => {
+      try {
+        component.start(server);
+        console.debug('Starting', component.constructor.name, '....');
+      }
+      catch (error) {
+        console.error(error);
+      }
     });
   }
 };

@@ -1,4 +1,3 @@
-const http = require('http');
 const { Server } = require('socket.io');
 const { authenticateSocket } = require('../utils/authentication');
 const withErrorHandling = require('../error/socket-error-handler');
@@ -11,13 +10,8 @@ module.exports = class SocketServer {
     this.io = null;
   }
 
-  start() {
-    const server = http.createServer();
-    server.listen(this.config.socketServerPort, () => {
-      console.debug(`Socket.IO Server listening on port ${this.config.socketServerPort}`);
-    });
+  start(server) {
     const { allowedOrigins } = this.config;
-
     this.io = new Server(server, {
       cors: {
         origin: (origin, callback) => {
@@ -32,6 +26,7 @@ module.exports = class SocketServer {
         credentials: true,
       },
     });
+    console.debug('Socket Server Started...');
     this.io.use((socket, next) => {
       authenticateSocket(socket, next);
     });
