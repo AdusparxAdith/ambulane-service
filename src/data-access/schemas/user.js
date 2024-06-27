@@ -18,6 +18,7 @@ const UserSchema = new mongoose.Schema({
     coordinates: { type: [Number], required: true }, // Longitude (East/West), Latitude (North/South)
   },
   active: { type: Boolean, default: true },
+  test: { type: Boolean },
 });
 
 UserSchema.index({ username: 1 }, { unique: true });

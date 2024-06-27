@@ -3,7 +3,7 @@ const { NEARBY_MIN_DISTANCE, NEARBY_MAX_DISTANCE } = require('../constants');
 module.exports = class UserDataAccess {
   constructor({ UserModel }) {
     this.UserModel = UserModel;
-    this.defaultFields = 'id name username type location';
+    this.defaultFields = 'id name username type location test';
   }
 
   async createUser({
